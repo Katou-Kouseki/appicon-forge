@@ -1,3 +1,5 @@
+import { forwardRef } from 'react'
+
 import { Sketch } from '@uiw/react-color'
 
 import {
@@ -7,37 +9,41 @@ import {
 } from '@/components/ui/popover'
 
 export interface ColorPickerProps {
-  colorBlockRender?: (node: React.ReactNode) => React.ReactNode
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  colorBlockRender?: (node: React.ReactNode, ref?: any) => React.ReactNode
   onChange?: (value: string) => void
   value?: string
 }
 
-export const ColorPicker = (props: ColorPickerProps) => {
-  const { colorBlockRender: renderColorBlock, onChange, value } = props
+export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
+  (props, ref) => {
+    const { colorBlockRender: renderColorBlock, onChange, value } = props
 
-  const colorBlock = value && (
-    <PopoverTrigger className='w-min'>
-      <div
-        className='size-7 rounded-md border border-zinc-500'
-        style={{ backgroundColor: value }}
-      />
-    </PopoverTrigger>
-  )
-
-  const renderNode = renderColorBlock?.(colorBlock) ?? colorBlock
-
-  return (
-    <Popover>
-      {renderNode}
-      <PopoverContent className='w-auto p-0 shadow-none'>
-        <Sketch
-          color={value}
-          presetColors={false}
-          onChange={(v) => {
-            onChange?.(v.hexa)
-          }}
+    const colorBlock = value && (
+      <PopoverTrigger className='w-min'>
+        <div
+          {...(!renderColorBlock ? { ref } : {})}
+          className='size-7 rounded-md border border-zinc-500'
+          style={{ backgroundColor: value }}
         />
-      </PopoverContent>
-    </Popover>
-  )
-}
+      </PopoverTrigger>
+    )
+
+    const renderNode = renderColorBlock?.(colorBlock, ref) ?? colorBlock
+
+    return (
+      <Popover>
+        {renderNode}
+        <PopoverContent className='w-auto p-0 shadow-none'>
+          <Sketch
+            color={value}
+            presetColors={false}
+            onChange={(v) => {
+              onChange?.(v.hexa)
+            }}
+          />
+        </PopoverContent>
+      </Popover>
+    )
+  },
+)

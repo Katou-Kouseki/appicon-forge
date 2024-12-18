@@ -16,6 +16,7 @@ export const enum Settings {
   Shadow = 'shadow',
   Text = 'text',
   TextShadow = 'text-shadow',
+  ImportAndExport = 'import-and-export',
 }
 
 // eslint-disable-next-line no-restricted-syntax

@@ -12,6 +12,8 @@ import { Input } from '../ui/input'
 import { Separator } from '../ui/separator'
 import { VirtualGrid } from '../virtual-grid'
 
+import type { PreviewIcon } from '@/store/interface'
+
 export const CollectionGrid = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -36,7 +38,7 @@ export const CollectionGrid = () => {
 
   const [data, list = []] = batchData ?? []
 
-  const { prefix } = data ?? {}
+  const { info, prefix } = data ?? {}
 
   const renderList = useDeferredValue(
     searchQuery
@@ -90,9 +92,17 @@ export const CollectionGrid = () => {
         data={renderList}
         error={isError}
         loading={isLoading}
-        renderItem={(iconName) => (
-          <IconCard iconName={`${prefix}:${iconName}`} />
-        )}
+        renderItem={(iconName) => {
+          const icon = {
+            name: `${prefix}:${iconName}`,
+            collection: {
+              prefix,
+              ...info,
+            },
+          } as PreviewIcon
+
+          return <IconCard icon={icon} />
+        }}
       />
     </div>
   )

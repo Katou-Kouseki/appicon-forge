@@ -18,6 +18,9 @@ An intuitive app icon generator that lets you customize colors, borders, gradien
 - Real-time preview of your icon changes.
 - Easy export of icons for apps.
 
+> [!IMPORTANT]
+> The text icons use the system's default fonts, and copyright compliance cannot be guaranteed. Please proceed with caution when making your selection.
+
 ## Usage
 
 You can use AppIcon Forge directly from GitHub Pages without any installation. Simply visit the following URL:

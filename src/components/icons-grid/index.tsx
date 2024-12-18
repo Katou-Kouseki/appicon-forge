@@ -1,7 +1,4 @@
-'use client'
-
-import { useState } from 'react'
-
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { clsx } from 'clsx'
 import { useTranslation } from 'react-i18next'
 
@@ -14,12 +11,14 @@ import { Collections } from './collections'
 import { SearchGrid } from './search-grid'
 
 export const IconsGrid = () => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [componentsState] = useStore((store) => store.componentsState)
+  const [componentsState, setComponentsState] = useStore(
+    (store) => store.componentsState,
+  )
+  const [ref] = useAutoAnimate()
 
   const { t } = useTranslation()
 
-  const { selectedCollection } = componentsState
+  const { searchQuery, selectedCollection } = componentsState
 
   let content: React.ReactNode = null
 
@@ -32,7 +31,7 @@ export const IconsGrid = () => {
   }
 
   return (
-    <div className='flex h-full flex-col gap-4'>
+    <div ref={ref} className='flex h-full flex-col gap-4'>
       <Separator />
       {!selectedCollection && (
         <Input
@@ -43,7 +42,9 @@ export const IconsGrid = () => {
           value={searchQuery}
           onChange={(e) => {
             const value = e.target.value.trim()
-            setSearchQuery(value)
+            setComponentsState((draft) => {
+              draft.searchQuery = value
+            })
           }}
         />
       )}

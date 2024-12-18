@@ -1,3 +1,5 @@
+import { createColor, createShadow } from '@/lib/utils'
+
 import { Gradient } from './constants'
 
 import type { Styles } from './interface'
@@ -11,10 +13,10 @@ export const defaultTextFont = 'sans-serif'
 export const defaultTextShadowAndIconShadowColor = 'rgba(0, 0, 0, 0.5)'
 
 export const defaultStyles: Styles = {
-  backgroundColors: [defaultBackgroundColor],
+  backgroundColors: [createColor(defaultBackgroundColor)],
   backgroundGradient: Gradient.Linear,
   backgroundRotation: 180,
-  borderColors: [defaultBorderColor],
+  borderColors: [createColor(defaultBorderColor)],
   borderGradient: Gradient.Linear,
   borderRadius: [64, 64, 64, 64],
   borderRotation: 180,
@@ -22,19 +24,19 @@ export const defaultStyles: Styles = {
   iconColor: defaultIconColor,
   iconOffset: [0, 0],
   iconRotation: 0,
-  iconShadow: [[0, 0, 0, 0, defaultTextShadowAndIconShadowColor]],
+  iconShadow: [createShadow(defaultTextShadowAndIconShadowColor)],
   iconSize: 128,
-  insetShadows: [[0, 0, 0, 0, defaultShadowColor]],
+  insetShadows: [createShadow(defaultShadowColor)],
   padding: true,
-  shadows: [[0, 0, 0, 0, defaultShadowColor]],
+  shadows: [createShadow(defaultShadowColor)],
   textColorRotation: 0,
-  textColors: [defaultTextColor],
+  textColors: [createColor(defaultTextColor)],
   textFont: defaultTextFont,
   textGradient: Gradient.Linear,
   textItalic: false,
   textOffset: [0, 0],
   textRotation: 0,
-  textShadow: [[0, 0, 0, 0, defaultTextShadowAndIconShadowColor]],
+  textShadow: [createShadow(defaultTextShadowAndIconShadowColor)],
   textSize: 128,
   textValue: '',
   textWeight: '400',

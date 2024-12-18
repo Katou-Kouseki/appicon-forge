@@ -6,6 +6,7 @@ import { useStore } from '@/store'
 
 import { DownloadButton } from '../download-button'
 import { IconCard } from '../icon-card'
+import { PreviewContainer } from '../ui/styled'
 
 export const PreviewText = () => {
   const [{ imageSize }] = useStore((store) => store.componentsState)
@@ -13,7 +14,7 @@ export const PreviewText = () => {
   const iconCardRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div className='flex flex-col items-center gap-16'>
+    <PreviewContainer>
       <Separator />
       <IconCard ref={iconCardRef} inPreview previewType='text' />
       <DownloadButton
@@ -21,6 +22,6 @@ export const PreviewText = () => {
           downloadImage(imageSize, `text.png`, iconCardRef.current)
         }}
       />
-    </div>
+    </PreviewContainer>
   )
 }

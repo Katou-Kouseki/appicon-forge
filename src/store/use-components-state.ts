@@ -8,7 +8,8 @@ export const useComponentsState = () => {
   const [state, setState] = useImmer<ComponentsState>({
     imageSize: 1024,
     isSeparateBorderRadius: false,
-    previewIconName: null,
+    previewIcon: null,
+    searchQuery: '',
     selectedCollection: null,
     selectedSettings: Settings.Icon,
     selectedTab: Tab.Icon,

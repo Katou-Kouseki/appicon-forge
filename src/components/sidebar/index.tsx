@@ -1,5 +1,3 @@
-'use client'
-
 import { ListRestart } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,6 +7,7 @@ import { DownloadSettings } from '@/components/settings/download-settings'
 import { IconSettings } from '@/components/settings/icon-settings'
 import { ShadowSettings } from '@/components/settings/shadow-settings'
 import { TextSettings } from '@/components/settings/text-settings'
+import { ImportAndExportSettings } from '@/components/settings/import-and-export'
 import { ShadowConfigProvider } from '@/components/shadow-list'
 import {
   Accordion,
@@ -21,7 +20,7 @@ import { useStore } from '@/store'
 import { Settings, Tab } from '@/store/constants'
 import { defaultStyles } from '@/store/default-value'
 
-export default function Sidebar() {
+export function Sidebar() {
   const { t } = useTranslation()
   const [componentsState, setComponentsState] = useStore(
     (store) => store.componentsState,
@@ -111,6 +110,12 @@ export default function Sidebar() {
           <AccordionTrigger>{t('download settings')}</AccordionTrigger>
           <AccordionContent>
             <DownloadSettings />
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value={Settings.ImportAndExport}>
+          <AccordionTrigger>{t('import and export')}</AccordionTrigger>
+          <AccordionContent>
+            <ImportAndExportSettings />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

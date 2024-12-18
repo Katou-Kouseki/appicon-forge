@@ -1,13 +1,11 @@
-import { startTransition, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { debounce } from 'lodash-es'
-import { useImmer, type Updater } from 'use-immer'
+import { useImmer } from 'use-immer'
 
 import { defaultStyles } from './default-value'
 
-import type { Styles } from './interface'
-
-const storageKey = 'appicon-forge-config'
+const storageKey = 'appicon-forge-config-v1'
 
 export const useStyles = () => {
   const [styles, setStyles] = useImmer(defaultStyles)
@@ -19,18 +17,12 @@ export const useStyles = () => {
     }, 1000),
   ).current
 
-  const transitionSetStyles: Updater<Styles> = (newStyles) => {
-    startTransition(() => {
-      setStyles(newStyles)
-    })
-  }
-
   useEffect(() => {
     if (!isMountRef.current) {
       isMountRef.current = true
       const storageString = localStorage.getItem(storageKey)
       if (storageString) {
-        transitionSetStyles(JSON.parse(storageString))
+        setStyles(JSON.parse(storageString))
       }
     } else {
       setStorageDebounce(styles)
@@ -38,5 +30,5 @@ export const useStyles = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [styles])
 
-  return [styles, transitionSetStyles] as const
+  return [styles, setStyles] as const
 }

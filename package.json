@@ -1,14 +1,20 @@
 {
   "name": "appicon-forge",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "prettier": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "prettier --write . && eslint --fix .",
+    "ts:check": "tsc -p tsconfig.app.json",
+    "prepare": "husky"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.2",
     "@iconify/react": "^5.0.2",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-checkbox": "^1.1.2",
@@ -33,9 +39,9 @@
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.460.0",
     "motion": "^11.11.17",
-    "next": "15.0.3",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "nanoid": "^5.0.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-i18next": "^15.1.1",
     "tailwind-merge": "^2.5.4",
     "tw-styled": "^3.0.0",
@@ -47,12 +53,16 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vitejs/plugin-react-swc": "^3.7.2",
     "@zhangyu1818/eslint-config": "^2.1.0",
+    "autoprefixer": "^10.4.20",
     "eslint": "^9.15.0",
+    "husky": "^9.1.7",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "~5.6.0"
+    "typescript": "~5.6.0",
+    "vite": "^6.0.0"
   }
 }

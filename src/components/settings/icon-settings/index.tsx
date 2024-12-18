@@ -1,4 +1,3 @@
-'use client'
 import { useTranslation } from 'react-i18next'
 
 import { ColorPicker } from '@/components/ui/color-picker'

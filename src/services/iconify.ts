@@ -29,7 +29,7 @@ export const queryIcons = async (
   prefix: string,
 ): Promise<APIv2CollectionResponse> => {
   const res = await fetch(
-    `https://api.iconify.design/collection?prefix=${prefix}`,
+    `https://api.iconify.design/collection?prefix=${prefix}&info=true`,
   )
   const data = await res.json()
   return data

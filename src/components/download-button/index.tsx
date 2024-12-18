@@ -12,6 +12,7 @@ export const DownloadButton = (props: DownloadButtonProps) => {
   const { t } = useTranslation()
   return (
     <Button
+      className='shrink-0'
       size='lg'
       onClick={(e) => {
         e.stopPropagation()

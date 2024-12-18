@@ -1,5 +1,3 @@
-'use client'
-
 import { createContextFactory } from '@reactils/create-context-factory'
 
 import { useComponentsState } from './use-components-state'

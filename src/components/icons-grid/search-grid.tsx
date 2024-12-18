@@ -5,6 +5,8 @@ import { useIconSearch } from '@/queries'
 import { IconCard } from '../icon-card'
 import { VirtualGrid } from '../virtual-grid'
 
+import type { PreviewIcon } from '@/store/interface'
+
 interface SearchGridProps {
   searchQuery: string
 }
@@ -14,6 +16,7 @@ export const SearchGrid = ({ searchQuery }: SearchGridProps) => {
   const { data, isError, isLoading } = useIconSearch(deferredSearchQuery)
 
   const allRows = data ? data.icons : []
+  const collections = data?.collections
 
   return (
     <VirtualGrid
@@ -21,7 +24,18 @@ export const SearchGrid = ({ searchQuery }: SearchGridProps) => {
       data={allRows}
       error={isError}
       loading={isLoading}
-      renderItem={(iconName) => <IconCard iconName={iconName} />}
+      renderItem={(iconName) => {
+        const [prefix] = iconName.split(':')
+        const icon = {
+          name: iconName,
+          collection: {
+            prefix,
+            ...collections?.[prefix],
+          },
+        } as PreviewIcon
+
+        return <IconCard icon={icon} />
+      }}
     />
   )
 }

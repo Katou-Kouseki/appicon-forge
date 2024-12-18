@@ -1,5 +1,3 @@
-'use client'
-
 import { cloneElement } from 'react'
 
 import { get, set } from 'lodash-es'

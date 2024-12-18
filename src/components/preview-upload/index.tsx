@@ -7,6 +7,7 @@ import { useStore } from '@/store'
 import { DownloadButton } from '../download-button'
 import { Input } from '../ui/input'
 import { Separator } from '../ui/separator'
+import { PreviewContainer } from '../ui/styled'
 
 export const PreviewUpload = () => {
   const [{ imageSize }] = useStore((store) => store.componentsState)
@@ -32,7 +33,7 @@ export const PreviewUpload = () => {
   }
 
   return (
-    <div className='flex flex-col items-center gap-16'>
+    <PreviewContainer>
       <Separator />
       <IconCard
         ref={iconCardRef}
@@ -42,7 +43,6 @@ export const PreviewUpload = () => {
           uploadedContent && (
             <div className='flex size-full items-center justify-center'>
               {uploadedContent.startsWith('data:image') ? (
-                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   alt='Uploaded preview'
                   className='size-full object-contain'
@@ -60,7 +60,7 @@ export const PreviewUpload = () => {
       />
       <Input
         accept='.svg,image/*'
-        className='w-[200px]'
+        className='w-[200px] shrink-0'
         type='file'
         onChange={handleFileUpload}
       />
@@ -69,6 +69,6 @@ export const PreviewUpload = () => {
           downloadImage(imageSize, `upload.png`, iconCardRef.current)
         }}
       />
-    </div>
+    </PreviewContainer>
   )
 }

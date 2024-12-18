@@ -1,11 +1,12 @@
 import { clsx, type ClassValue } from 'clsx'
 import { toPng } from 'html-to-image'
+import { nanoid } from 'nanoid'
 import { twMerge } from 'tailwind-merge'
 
 import { Gradient } from '@/store/constants'
 
 import type { APIv2CollectionResponse } from '@/services/iconify'
-import type { Shadow } from '@/store/interface'
+import type { Color, Shadow } from '@/store/interface'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -103,35 +104,30 @@ export const colorToGradient = (
 export const getShadowCSS = (insetShadow: Shadow[], inset?: boolean) => {
   return insetShadow
     .map(
-      ([x, y, size, blur, color]) =>
-        `${x}px ${y}px ${blur}px ${size}px ${color} ${inset ? 'inset' : ''}`,
+      ([x, y, blur, spread, color]) =>
+        `${x}px ${y}px ${blur}px ${spread}px ${color.value} ${inset ? 'inset' : ''}`,
     )
     .join(', ')
 }
 
 export const getDropShadowCSS = (shadow: Shadow[]) => {
-  const omitSizeShadow = shadow.map(([x, y, , blur, color]) => [
-    x,
-    y,
-    blur,
-    color,
-  ])
+  const omitSizeShadow = shadow.map(
+    ([x, y, blur, , color]) => [x, y, blur, color] as const,
+  )
   return omitSizeShadow
     .map(
-      ([x, y, blur, color]) => `drop-shadow(${x}px ${y}px ${blur}px ${color})`,
+      ([x, y, blur, color]) =>
+        `drop-shadow(${x}px ${y}px ${blur}px ${color.value})`,
     )
     .join(' ')
 }
 
 export const getTextShadowCSS = (shadow: Shadow[]) => {
-  const omitSizeShadow = shadow.map(([x, y, , blur, color]) => [
-    x,
-    y,
-    blur,
-    color,
-  ])
+  const omitSizeShadow = shadow.map(
+    ([x, y, blur, , color]) => [x, y, blur, color] as const,
+  )
   return omitSizeShadow
-    .map(([x, y, blur, color]) => `${x}px ${y}px ${blur}px ${color}`)
+    .map(([x, y, blur, color]) => `${x}px ${y}px ${blur}px ${color.value}`)
     .join(', ')
 }
 
@@ -203,4 +199,15 @@ export const detectFontAvailability = (font: string) => {
     }
   }
   return false
+}
+
+export const createColor = (color: string): Color => {
+  return {
+    id: nanoid(),
+    value: color,
+  }
+}
+
+export const createShadow = (color: string): Shadow => {
+  return [0, 0, 0, 0, createColor(color)]
 }
